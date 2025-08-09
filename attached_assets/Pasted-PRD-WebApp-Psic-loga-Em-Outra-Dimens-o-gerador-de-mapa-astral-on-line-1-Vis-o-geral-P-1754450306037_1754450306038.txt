@@ -1,0 +1,130 @@
+PRD – WebApp “Psicóloga Em Outra Dimensão”
+
+(gerador de mapa astral on-line)
+
+⸻
+
+1. Visão geral
+	•	Propósito: gerar mapa astral em SVG e um relatório completo para download, sem cadastro.
+	•	Valor: acesso rápido, visual agradável e documento detalhado em segundos.
+
+⸻
+
+2. Objetivos do produto
+
+Objetivo	Indicador de sucesso
+Concluir geração para a maioria dos visitantes	≥ 85 % completam o fluxo
+Gerar resultados rápido	mapa + relatório em ≤ 5 s (p50)
+Satisfação do usuário	NPS ≥ 50
+
+
+⸻
+
+3. Problema
+
+Geradores atuais exigem cadastro ou cobram pelo relatório detalhado. Precisamos de uma opção gratuita, simples e bonita.
+
+⸻
+
+4. Personas
+	•	Laura (23) – primeira experiência, usa celular.
+	•	Rafael (35) – terapeuta, quer cartas rápidas.
+	•	Marina (29) – designer, valoriza acessibilidade.
+
+⸻
+
+5. Requisitos funcionais
+	1.	Formulário único
+	•	Nome, data, hora, cidade.
+	•	Validações em tempo real, fuso horário automático.
+	2.	API Astrologer (RapidAPI)
+	•	Endpoint /api/v4/birth-chart via rota server-side.
+	•	Plano Free, monitorar limites.
+	3.	Renderização do SVG
+	•	Carta responsiva, botão baixar SVG.
+	4.	Relatório completo
+	•	Geração automática de PDF (ou Markdown → PDF) com:
+	•	posições dos planetas, casas, aspectos principais;
+	•	breve descrição de cada item.
+	•	Botão baixar PDF.
+	5.	Design
+	•	Paleta rosa (#FFB6C1 / #FF69B4), glassmorphism.
+	6.	Feedback de estado
+	•	Loader e mensagens claras de erro.
+
+⸻
+
+6. Requisitos não-funcionais
+	•	Performance: LCP < 2 s em 4 G; Lighthouse ≥ 90 mobile.
+	•	Segurança: chave da API só no servidor.
+	•	Acessibilidade: contraste AA, navegação por teclado.
+	•	Responsividade: mobile-first.
+	•	Deploy: Vercel Free (build 1 h/dia).
+
+⸻
+
+7. MVP
+
+Incluído	Excluído (pós-MVP)
+Formulário, SVG, PDF, design rosa, loaders	Temas por signo, IA de insights, login social
+
+
+⸻
+
+8. Roadmap pós-MVP
+	1.	Personalização de temas (light/dark).
+	2.	Insights de IA sobre a carta.
+	3.	Cache local de cartas.
+	4.	Compartilhamento social.
+
+⸻
+
+9. Dependências
+	•	RapidAPI Astrologer Free (1000 req/mês).
+	•	Vercel Free.
+
+⸻
+
+10. Métricas
+	•	Taxa de conclusão.
+	•	Tempo médio de geração.
+	•	Downloads de PDF.
+	•	NPS.
+
+⸻
+
+11. Equipe
+
+Papel	Responsável
+Product Owner	Gabriel Ramos
+Frontend	a definir
+UI/UX	a definir
+QA	a definir
+
+
+⸻
+
+12. Cronograma
+
+Semana	Entrega
+1	Kick-off, wireframes
+2	Formulário + validações
+3	Integração API
+4	SVG + geração de PDF
+5	QA e acessibilidade
+6	Deploy público
+
+
+⸻
+
+13. Riscos
+
+Risco	Ação
+Limite da API	cachear resultados, fila ou upgrade
+PDF pesado em 3G	compactar e gerar versão leve
+Quebra de layout	testes em vários devices
+
+
+⸻
+
+Obs.: estas informações vêm do PDF enviado; não foram checadas externamente.

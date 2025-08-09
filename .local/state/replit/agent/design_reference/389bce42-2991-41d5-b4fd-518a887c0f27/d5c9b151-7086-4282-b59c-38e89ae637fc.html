@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psicóloga Em Outra Dimensão - Gerador de Mapa Astral</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ethereal-light': '#E9F9FF',
+                        'ethereal-medium': '#B0F0FF',
+                        'primary-cyan': '#3FCFF9',
+                        'secondary-lime': '#88ff47',
+                        'text-dark': '#222222'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'spin-slow': 'spin 3s linear infinite'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        :root {
+            --primary: #3FCFF9;
+            --secondary: #88ff47;
+            --text: #222222;
+            --glass: rgba(255,255,255,0.25);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(63, 207, 249, 0.3); }
+            to { box-shadow: 0 0 30px rgba(63, 207, 249, 0.6); }
+        }
+
+        .glass-morphism {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .mystic-gradient {
+            background: linear-gradient(135deg, #E9F9FF 0%, #B0F0FF 100%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animate-float, .animate-glow, .animate-spin-slow {
+                animation: none;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .focus-ring:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(63, 207, 249, 0.3);
+        }
+
+        /* Custom loading spinner */
+        .mystical-loader {
+            border: 3px solid transparent;
+            border-radius: 50%;
+            border-top: 3px solid var(--primary);
+            border-right: 3px solid var(--secondary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body class="font-inter mystic-gradient min-h-screen">
+    <!-- @COMPONENT: AppContainer -->
+    <div class="min-h-screen p-4 sm:p-6 lg:p-8">
+        
+        <!-- @COMPONENT: Header -->
+        <header class="text-center mb-8 sm:mb-12">
+            <div class="glass-morphism rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto animate-float">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-moon text-4xl sm:text-5xl text-primary-cyan mr-4 animate-glow"></i>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-dark">
+                        Psicóloga Em Outra Dimensão
+                    </h1>
+                </div>
+                <p class="text-lg sm:text-xl text-text-dark/80 font-light">
+                    Descubra os segredos do seu mapa astral gratuitamente
+                </p>
+                <div class="mt-4 flex items-center justify-center text-secondary-lime font-medium">
+                    <i class="fas fa-star mr-2"></i>
+                    <span>Sem cadastro • Gratuito • Relatório completo</span>
+                    <i class="fas fa-star ml-2"></i>
+                </div>
+            </div>
+        </header>
+        <!-- @END_COMPONENT: Header -->
+
+        <!-- @COMPONENT: MainContent -->
+        <main class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                
+                <!-- @COMPONENT: BirthDataForm -->
+                <div class="glass-morphism rounded-3xl p-6 sm:p-8">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl sm:text-3xl font-semibold text-text-dark mb-2">
+                            Dados de Nascimento
+                        </h2>
+                        <p class="text-text-dark/70">Preencha os campos abaixo para gerar seu mapa astral</p>
+                    </div>
+
+                    <form class="space-y-6" data-implementation="Should validate in real-time and submit via API">
+                        <!-- Nome -->
+                        <div>
+                            <label for="nome" class="block text-sm font-medium text-text-dark mb-2">
+                                <i class="fas fa-user mr-2 text-primary-cyan"></i>
+                                Nome Completo
+                            </label>
+                            <input 
+                                type="text" 
+                                id="nome" 
+                                name="nome"
+                                data-bind="form.name"
+                                data-mock="true"
+                                placeholder="Digite seu nome completo"
+                                class="w-full px-4 py-3 rounded-xl bg-white/30 border border-white/40 text-text-dark placeholder-text-dark/50 focus-ring focus:bg-white/40 transition-all duration-200"
+                                required
+                                aria-describedby="nome-error"
+                            />
+                            <div id="nome-error" class="text-red-500 text-sm mt-1 hidden" role="alert">
+                                <!-- Error message for name validation -->
+                            </div>
+                        </div>
+
+                        <!-- Data de Nascimento -->
+                        <div>
+                            <label for="data" class="block text-sm font-medium text-text-dark mb-2">
+                                <i class="fas fa-calendar mr-2 text-primary-cyan"></i>
+                                Data de Nascimento
+                            </label>
+                            <input 
+                                type="date" 
+                                id="data" 
+                                name="data"
+                                data-bind="form.birthDate"
+                                data-mock="true"
+                                class="w-full px-4 py-3 rounded-xl bg-white/30 border border-white/40 text-text-dark focus-ring focus:bg-white/40 transition-all duration-200"
+                                required
+                                aria-describedby="data-error"
+                            />
+                            <div id="data-error" class="text-red-500 text-sm mt-1 hidden" role="alert">
+                                <!-- Error message for date validation -->
+                            </div>
+                        </div>
+
+                        <!-- Hora de Nascimento -->
+                        <div>
+                            <label for="hora" class="block text-sm font-medium text-text-dark mb-2">
+                                <i class="fas fa-clock mr-2 text-primary-cyan"></i>
+                                Hora de Nascimento
+                            </label>
+                            <input 
+                                type="time" 
+                                id="hora" 
+                                name="hora"
+                                data-bind="form.birthTime"
+                                data-mock="true"
+                                class="w-full px-4 py-3 rounded-xl bg-white/30 border border-white/40 text-text-dark focus-ring focus:bg-white/40 transition-all duration-200"
+                                required
+                                aria-describedby="hora-error"
+                            />
+                            <div id="hora-error" class="text-red-500 text-sm mt-1 hidden" role="alert">
+                                <!-- Error message for time validation -->
+                            </div>
+                        </div>
+
+                        <!-- Cidade -->
+                        <div>
+                            <label for="cidade" class="block text-sm font-medium text-text-dark mb-2">
+                                <i class="fas fa-map-marker-alt mr-2 text-primary-cyan"></i>
+                                Cidade de Nascimento
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    id="cidade" 
+                                    name="cidade"
+                                    data-bind="form.birthPlace"
+                                    data-mock="true"
+                                    placeholder="Digite a cidade onde nasceu"
+                                    class="w-full px-4 py-3 rounded-xl bg-white/30 border border-white/40 text-text-dark placeholder-text-dark/50 focus-ring focus:bg-white/40 transition-all duration-200"
+                                    required
+                                    aria-describedby="cidade-error"
+                                    data-implementation="Should include autocomplete for cities"
+                                />
+                                <div class="absolute right-3 top-3 text-text-dark/40">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                            <div id="cidade-error" class="text-red-500 text-sm mt-1 hidden" role="alert">
+                                <!-- Error message for city validation -->
+                            </div>
+                            <p class="text-xs text-text-dark/60 mt-1">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Fuso horário detectado automaticamente: America/Sao_Paulo
+                            </p>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            data-event="click:generateChart"
+                            data-implementation="Should validate form and call API"
+                            class="w-full bg-primary-cyan hover:bg-primary-cyan/90 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 focus-ring hover:shadow-lg active:scale-95 group"
+                        >
+                            <i class="fas fa-stars mr-2 group-hover:animate-spin-slow"></i>
+                            Gerar Mapa Astral
+                        </button>
+                    </form>
+                </div>
+                <!-- @END_COMPONENT: BirthDataForm -->
+
+                <!-- @COMPONENT: ResultsSection -->
+                <div class="space-y-6">
+                    <!-- Chart Display -->
+                    <div class="glass-morphism rounded-3xl p-6 sm:p-8">
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-semibold text-text-dark mb-2">
+                                <i class="fas fa-chart-pie mr-2 text-secondary-lime"></i>
+                                Seu Mapa Astral
+                            </h3>
+                            <p class="text-text-dark/70">Visualização interativa da sua carta natal</p>
+                        </div>
+
+                        <!-- @STATE: isLoading:boolean = false -->
+                        <!-- @STATE: chartData:object = null -->
+                        
+                        <!-- Loading State -->
+                        <div class="hidden" data-state="loading" id="chart-loading">
+                            <div class="flex flex-col items-center justify-center py-12">
+                                <div class="mystical-loader mb-4"></div>
+                                <p class="text-text-dark/70 text-center">
+                                    Consultando as estrelas...
+                                    <br>
+                                    <span class="text-sm">Isso pode levar alguns segundos</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Chart Display -->
+                        <div id="chart-container" data-state="ready">
+                            <!-- Placeholder chart -->
+                            <div class="aspect-square bg-gradient-to-br from-white/20 to-white/10 rounded-2xl border border-white/30 flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-moon text-6xl text-primary-cyan/50 mb-4 animate-float"></i>
+                                    <p class="text-text-dark/60">
+                                        Preencha o formulário para ver seu mapa astral aqui
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- @FUNCTIONALITY: SVG chart should be rendered here via API response -->
+                            <!-- <svg data-mock-image="true" data-implementation="Replace with actual astral chart SVG from API">
+                                Generated astral chart will appear here
+                            </svg> -->
+                        </div>
+
+                        <!-- Chart Actions -->
+                        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                            <button 
+                                class="flex-1 bg-secondary-lime hover:bg-secondary-lime/90 text-black font-medium py-3 px-4 rounded-xl transition-all duration-200 focus-ring disabled:opacity-50 disabled:cursor-not-allowed"
+                                data-event="click:downloadSVG"
+                                data-implementation="Should trigger SVG download"
+                                disabled
+                            >
+                                <i class="fas fa-download mr-2"></i>
+                                Baixar SVG
+                            </button>
+                            <button 
+                                class="flex-1 bg-white/20 hover:bg-white/30 text-text-dark font-medium py-3 px-4 rounded-xl transition-all duration-200 focus-ring disabled:opacity-50 disabled:cursor-not-allowed border border-white/30"
+                                data-event="click:shareChart"
+                                data-implementation="Should enable sharing functionality"
+                                disabled
+                            >
+                                <i class="fas fa-share-alt mr-2"></i>
+                                Compartilhar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Report Download -->
+                    <div class="glass-morphism rounded-3xl p-6 sm:p-8">
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-semibold text-text-dark mb-2">
+                                <i class="fas fa-file-pdf mr-2 text-secondary-lime"></i>
+                                Relatório Completo
+                            </h3>
+                            <p class="text-text-dark/70">Análise detalhada dos planetas, casas e aspectos</p>
+                        </div>
+
+                        <!-- Report Preview -->
+                        <div class="bg-white/10 rounded-xl p-4 mb-6 border border-white/20">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-file-alt text-3xl text-primary-cyan"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-text-dark mb-1">Incluído no relatório:</h4>
+                                    <ul class="text-sm text-text-dark/70 space-y-1">
+                                        <li><i class="fas fa-check mr-2 text-secondary-lime"></i>Posições planetárias detalhadas</li>
+                                        <li><i class="fas fa-check mr-2 text-secondary-lime"></i>Análise das 12 casas astrológicas</li>
+                                        <li><i class="fas fa-check mr-2 text-secondary-lime"></i>Aspectos principais entre planetas</li>
+                                        <li><i class="fas fa-check mr-2 text-secondary-lime"></i>Interpretação personalizada</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Download Button -->
+                        <button 
+                            class="w-full bg-gradient-to-r from-primary-cyan to-secondary-lime hover:from-primary-cyan/90 hover:to-secondary-lime/90 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 focus-ring disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                            data-event="click:downloadPDF"
+                            data-implementation="Should generate and download PDF report"
+                            disabled
+                        >
+                            <i class="fas fa-download mr-2"></i>
+                            Baixar Relatório PDF
+                            <span class="text-xs ml-2 bg-white/20 px-2 py-1 rounded-full">GRÁTIS</span>
+                        </button>
+
+                        <p class="text-xs text-text-dark/60 text-center mt-3">
+                            <i class="fas fa-shield-alt mr-1"></i>
+                            Seus dados não são armazenados • Processo 100% seguro
+                        </p>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: ResultsSection -->
+            </div>
+
+            <!-- @COMPONENT: Features -->
+            <section class="mt-12 sm:mt-16">
+                <div class="glass-morphism rounded-3xl p-6 sm:p-8">
+                    <h2 class="text-2xl sm:text-3xl font-semibold text-text-dark text-center mb-8">
+                        Por que escolher nosso gerador?
+                    </h2>
+                    
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- @MAP: features.map(feature => ( -->
+                        <div class="text-center p-4">
+                            <div class="w-16 h-16 bg-primary-cyan/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-bolt text-2xl text-primary-cyan"></i>
+                            </div>
+                            <h3 class="font-semibold text-text-dark mb-2">Rápido & Preciso</h3>
+                            <p class="text-sm text-text-dark/70">Resultados em menos de 5 segundos com cálculos precisos</p>
+                        </div>
+
+                        <div class="text-center p-4">
+                            <div class="w-16 h-16 bg-secondary-lime/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-gift text-2xl text-secondary-lime"></i>
+                            </div>
+                            <h3 class="font-semibold text-text-dark mb-2">100% Gratuito</h3>
+                            <p class="text-sm text-text-dark/70">Sem cadastro, sem taxas, sem limitações</p>
+                        </div>
+
+                        <div class="text-center p-4">
+                            <div class="w-16 h-16 bg-primary-cyan/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-mobile-alt text-2xl text-primary-cyan"></i>
+                            </div>
+                            <h3 class="font-semibold text-text-dark mb-2">Mobile Friendly</h3>
+                            <p class="text-sm text-text-dark/70">Funciona perfeitamente em qualquer dispositivo</p>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </section>
+            <!-- @END_COMPONENT: Features -->
+        </main>
+        <!-- @END_COMPONENT: MainContent -->
+
+        <!-- @COMPONENT: Footer -->
+        <footer class="mt-12 sm:mt-16 text-center">
+            <div class="glass-morphism rounded-3xl p-6">
+                <p class="text-text-dark/70 text-sm">
+                    © 2024 Psicóloga Em Outra Dimensão • 
+                    <span class="text-secondary-lime">Desenvolvido com ❤️ para autoconhecimento</span>
+                </p>
+                <div class="mt-4 flex justify-center space-x-6">
+                    <a href="#" class="text-text-dark/60 hover:text-primary-cyan transition-colors duration-200" aria-label="Instagram">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-text-dark/60 hover:text-primary-cyan transition-colors duration-200" aria-label="Facebook">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-text-dark/60 hover:text-primary-cyan transition-colors duration-200" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <!-- @END_COMPONENT: Footer -->
+    </div>
+    <!-- @END_COMPONENT: AppContainer -->
+
+    <!-- Error Toast Component -->
+    <div id="error-toast" class="fixed top-4 right-4 max-w-sm hidden z-50" role="alert" aria-live="assertive">
+        <div class="bg-red-500 text-white p-4 rounded-xl shadow-lg">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <span id="error-message">Mensagem de erro</span>
+                <button 
+                    class="ml-auto text-white/80 hover:text-white"
+                    onclick="document.getElementById('error-toast').classList.add('hidden')"
+                    aria-label="Fechar"
+                >
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        (function() {
+            'use strict';
+            
+            // Form validation and submission
+            const form = document.querySelector('form');
+            const chartContainer = document.getElementById('chart-container');
+            const loadingState = document.getElementById('chart-loading');
+            
+            // Mock form interaction for demonstration
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    chartContainer.classList.add('hidden');
+                    loadingState.classList.remove('hidden');
+                    
+                    // Simulate API call delay
+                    setTimeout(() => {
+                        loadingState.classList.add('hidden');
+                        chartContainer.classList.remove('hidden');
+                        
+                        // Enable download buttons
+                        const buttons = document.querySelectorAll('button[disabled]');
+                        buttons.forEach(btn => btn.removeAttribute('disabled'));
+                        
+                        // Show success feedback
+                        showToast('Mapa astral gerado com sucesso!', 'success');
+                    }, 3000);
+                });
+            }
+            
+            // Real-time form validation
+            const inputs = document.querySelectorAll('input[required]');
+            inputs.forEach(input => {
+                input.addEventListener('blur', validateField);
+                input.addEventListener('input', clearFieldError);
+            });
+            
+            function validateField(e) {
+                const field = e.target;
+                const errorDiv = document.getElementById(field.name + '-error');
+                
+                if (!field.value.trim()) {
+                    showFieldError(field, errorDiv, 'Este campo é obrigatório');
+                } else {
+                    clearFieldError(field, errorDiv);
+                }
+            }
+            
+            function showFieldError(field, errorDiv, message) {
+                field.classList.add('border-red-500');
+                errorDiv.textContent = message;
+                errorDiv.classList.remove('hidden');
+            }
+            
+            function clearFieldError(field, errorDiv) {
+                field.classList.remove('border-red-500');
+                if (errorDiv) {
+                    errorDiv.classList.add('hidden');
+                }
+            }
+            
+            function showToast(message, type = 'error') {
+                const toast = document.getElementById('error-toast');
+                const messageEl = document.getElementById('error-message');
+                
+                messageEl.textContent = message;
+                
+                if (type === 'success') {
+                    toast.querySelector('.bg-red-500').className = 'bg-green-500 text-white p-4 rounded-xl shadow-lg';
+                }
+                
+                toast.classList.remove('hidden');
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 5000);
+            }
+            
+            // Keyboard navigation support
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    // Close any open modals or toasts
+                    document.getElementById('error-toast').classList.add('hidden');
+                }
+            });
+            
+        })();
+    </script>
+</body>
+</html>

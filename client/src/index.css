@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 40%, 8%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215, 16%, 47%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 40%, 8%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(210, 40%, 8%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(193, 93%, 61%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(86, 100%, 64%);
+  --secondary-foreground: hsl(0, 0%, 0%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(210, 40%, 8%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(193, 93%, 61%);
+  --radius: 0.5rem;
+  
+  /* Updated cosmic color scheme */
+  --bgFrom: #E9F9FF;
+  --bgTo: #B0F0FF;
+  --primary-cosmic: #3FCFF9;
+  --secondary-cosmic: #88ff47;
+  --surface: rgba(255, 255, 255, 0.25);
+  --text-cosmic: #222222;
+  --textOnPrimary: #FFFFFF;
+  --textOnSecondary: #000000;
+  
+  /* Enhanced glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --cosmic-gradient: linear-gradient(135deg, var(--bgFrom) 0%, var(--bgTo) 100%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(193, 93%, 61%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(86, 100%, 64%);
+  --secondary-foreground: hsl(0, 0%, 0%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background: var(--cosmic-gradient);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    position: relative;
+  }
+  
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  
+  .glass-input {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--primary-cosmic);
+    box-shadow: 0 0 0 3px rgba(63, 207, 249, 0.15);
+    outline: none;
+    transform: translateY(-1px);
+  }
+  
+  .floating-label {
+    position: absolute;
+    left: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    color: var(--text-cosmic);
+    opacity: 0.7;
+    z-index: 1;
+  }
+  
+  .input-group:focus-within .floating-label,
+  .input-group.has-value .floating-label {
+    transform: translateY(-24px) scale(0.85);
+    color: var(--primary-cosmic);
+    font-weight: 500;
+    opacity: 1;
+  }
+  
+  .zodiac-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .zodiac-icon:hover {
+    transform: scale(1.15) rotate(10deg);
+    filter: brightness(1.3) saturate(1.2);
+  }
+  
+  .astral-chart-placeholder {
+    background: radial-gradient(circle at center, rgba(63, 207, 249, 0.1) 0%, rgba(136, 255, 71, 0.05) 100%);
+    border: 2px dashed rgba(63, 207, 249, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .astral-chart-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(63, 207, 249, 0.03) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+  }
+  
+  .cosmic-button {
+    background: linear-gradient(135deg, var(--primary-cosmic) 0%, var(--secondary-cosmic) 100%);
+    backdrop-filter: blur(10px);
+    border: none;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cosmic-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+  
+  .cosmic-button:hover::before {
+    left: 100%;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+  
+  .animate-spin-slow {
+    animation: spin 12s linear infinite;
+  }
+  
+  .star-animation {
+    animation: starGlow 2.5s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulseSlow 4s ease-in-out infinite;
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounceGentle 3s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 3s infinite;
+  }
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  25% { 
+    transform: translateY(-8px) rotate(2deg); 
+  }
+  50% { 
+    transform: translateY(-15px) rotate(0deg); 
+  }
+  75% { 
+    transform: translateY(-8px) rotate(-2deg); 
+  }
+}
+
+@keyframes glow {
+  0% { 
+    filter: brightness(1) saturate(1) drop-shadow(0 0 5px rgba(63, 207, 249, 0.3)); 
+  }
+  100% { 
+    filter: brightness(1.3) saturate(1.4) drop-shadow(0 0 20px rgba(63, 207, 249, 0.6)); 
+  }
+}
+
+@keyframes starGlow {
+  0%, 100% { 
+    opacity: 0.4; 
+    transform: scale(1) rotate(0deg); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.3) rotate(180deg); 
+  }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: scale(1.05); 
+    opacity: 1; 
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-5px); 
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-glow,
+  .animate-spin-slow,
+  .star-animation,
+  .animate-pulse-slow,
+  .animate-bounce-gentle,
+  .animate-shimmer {
+    animation: none;
+  }
+  
+  .zodiac-icon:hover {
+    transform: scale(1.05);
+  }
+  
+  .glass-input:focus {
+    transform: none;
+  }
+}

@@ -1,0 +1,543 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psicóloga Em Outra Dimensão - Gerador de Mapa Astral</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    'inter': ['Inter', 'sans-serif']
+                },
+                colors: {
+                    'ethereal-light': '#E9F9FF',
+                    'ethereal-medium': '#B0F0FF',
+                    'primary-cyan': '#3FCFF9',
+                    'accent-lime': '#32CD32',
+                    'text-dark': '#222222'
+                },
+                backdropBlur: {
+                    'xs': '2px'
+                }
+            }
+        }
+    };
+    </script>
+    <style>
+        :root {
+            --gradient-bg: linear-gradient(135deg, #E9F9FF 0%, #B0F0FF 100%);
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #3FCFF9;
+            box-shadow: 0 0 0 3px rgba(63, 207, 249, 0.1);
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3FCFF9 0%, #2DD4AA 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(63, 207, 249, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(50, 205, 50, 0.3);
+        }
+
+        .loading-spinner {
+            border: 3px solid rgba(63, 207, 249, 0.3);
+            border-top: 3px solid #3FCFF9;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .chart-container {
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus management for accessibility */
+        .focus-ring:focus {
+            outline: 2px solid #3FCFF9;
+            outline-offset: 2px;
+        }
+
+        /* Form validation styles */
+        .error-message {
+            color: #DC2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            color: #16A34A;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-ethereal-light to-ethereal-medium">
+    
+    <!-- @COMPONENT: Header [App branding and navigation] -->
+    <header class="w-full py-6 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass-card rounded-2xl p-6 text-center fade-in">
+                <h1 class="text-3xl md:text-5xl font-bold text-text-dark mb-4">
+                    <i class="fas fa-moon text-primary-cyan mr-3" aria-hidden="true"></i>
+                    Psicóloga Em Outra Dimensão
+                </h1>
+                <p class="text-lg md:text-xl text-text-dark opacity-80 max-w-2xl mx-auto">
+                    Descubra os segredos do seu mapa astral com nosso gerador gratuito. 
+                    Sem cadastro, resultados instantâneos em SVG e relatório completo em PDF.
+                </p>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- @COMPONENT: MainContainer [Primary application container] -->
+    <main class="max-w-6xl mx-auto px-4 pb-12">
+        
+        <!-- @COMPONENT: FormSection [Birth chart input form] -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.2s">
+            <div class="glass-card rounded-2xl p-6 md:p-8">
+                <h2 class="text-2xl md:text-3xl font-semibold text-text-dark mb-6 text-center">
+                    <i class="fas fa-star text-accent-lime mr-2" aria-hidden="true"></i>
+                    Gere Seu Mapa Astral
+                </h2>
+                
+                <form id="birthChartForm" class="grid grid-cols-1 md:grid-cols-2 gap-6" novalidate>
+                    <!-- @STATE: formData:object = {} -->
+                    <!-- @STATE: isLoading:boolean = false -->
+                    <!-- @STATE: errors:object = {} -->
+                    
+                    <div class="space-y-2">
+                        <label for="nome" class="block text-sm font-medium text-text-dark">
+                            Nome Completo *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome"
+                            data-bind="formData.nome"
+                            class="glass-input w-full px-4 py-3 rounded-lg text-text-dark placeholder-gray-500 focus-ring" 
+                            placeholder="Digite seu nome completo"
+                            required
+                            aria-describedby="nome-error"
+                            data-mock="true"
+                        />
+                        <div id="nome-error" class="error-message hidden" role="alert">
+                            <!-- Dynamic error message -->
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="data" class="block text-sm font-medium text-text-dark">
+                            Data de Nascimento *
+                        </label>
+                        <input 
+                            type="date" 
+                            id="data" 
+                            name="data"
+                            data-bind="formData.data"
+                            class="glass-input w-full px-4 py-3 rounded-lg text-text-dark focus-ring" 
+                            required
+                            aria-describedby="data-error"
+                            data-mock="true"
+                        />
+                        <div id="data-error" class="error-message hidden" role="alert">
+                            <!-- Dynamic error message -->
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="hora" class="block text-sm font-medium text-text-dark">
+                            Hora de Nascimento *
+                        </label>
+                        <input 
+                            type="time" 
+                            id="hora" 
+                            name="hora"
+                            data-bind="formData.hora"
+                            class="glass-input w-full px-4 py-3 rounded-lg text-text-dark focus-ring" 
+                            required
+                            aria-describedby="hora-error"
+                            data-mock="true"
+                        />
+                        <div id="hora-error" class="error-message hidden" role="alert">
+                            <!-- Dynamic error message -->
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="cidade" class="block text-sm font-medium text-text-dark">
+                            Cidade de Nascimento *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="cidade" 
+                            name="cidade"
+                            data-bind="formData.cidade"
+                            class="glass-input w-full px-4 py-3 rounded-lg text-text-dark placeholder-gray-500 focus-ring" 
+                            placeholder="Ex: São Paulo, SP"
+                            required
+                            aria-describedby="cidade-error"
+                            data-mock="true"
+                        />
+                        <div id="cidade-error" class="error-message hidden" role="alert">
+                            <!-- Dynamic error message -->
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 mt-6">
+                        <button 
+                            type="submit" 
+                            class="btn-primary w-full py-4 px-8 rounded-lg text-white font-semibold text-lg focus-ring disabled:opacity-50 disabled:cursor-not-allowed"
+                            data-event="click:handleSubmit"
+                            data-implementation="Should validate form and call astrology API"
+                            data-mock="true"
+                        >
+                            <span id="submit-text">
+                                <i class="fas fa-magic mr-2" aria-hidden="true"></i>
+                                Gerar Mapa Astral
+                            </span>
+                            <span id="loading-text" class="hidden">
+                                <div class="loading-spinner inline-block mr-2"></div>
+                                Gerando seu mapa...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: FormSection -->
+
+        <!-- @COMPONENT: ResultsSection [Generated chart and downloads] -->
+        <section id="results" class="hidden fade-in" style="animation-delay: 0.4s">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Chart Display -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold text-text-dark mb-4 text-center">
+                        <i class="fas fa-chart-pie text-primary-cyan mr-2" aria-hidden="true"></i>
+                        Seu Mapa Astral
+                    </h3>
+                    
+                    <div class="chart-container aspect-square rounded-xl p-4 mb-4 flex items-center justify-center">
+                        <!-- @FUNCTIONALITY: This should display the generated SVG birth chart from the API -->
+                        <div id="chart-display" class="w-full h-full bg-white/10 rounded-xl flex items-center justify-center border-2 border-dashed border-white/30">
+                            <div class="text-center text-text-dark opacity-60">
+                                <i class="fas fa-chart-pie text-4xl mb-2" aria-hidden="true"></i>
+                                <p>Mapa astral aparecerá aqui</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button 
+                        class="btn-secondary w-full py-3 px-6 rounded-lg text-black font-medium focus-ring"
+                        data-event="click:downloadSVG"
+                        data-implementation="Should trigger SVG download"
+                        data-mock="true"
+                    >
+                        <i class="fas fa-download mr-2" aria-hidden="true"></i>
+                        Baixar Mapa (SVG)
+                    </button>
+                </div>
+
+                <!-- Report Section -->
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-semibold text-text-dark mb-4 text-center">
+                        <i class="fas fa-file-pdf text-primary-cyan mr-2" aria-hidden="true"></i>
+                        Relatório Completo
+                    </h3>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="glass-input p-4 rounded-lg">
+                            <h4 class="font-medium text-text-dark mb-2">Informações Pessoais</h4>
+                            <p class="text-sm text-text-dark opacity-80" data-bind="reportData.personalInfo" data-mock="true">
+                                Nome: João Silva<br>
+                                Data: 15/03/1990<br>
+                                Hora: 14:30<br>
+                                Local: São Paulo, SP
+                            </p>
+                        </div>
+
+                        <div class="glass-input p-4 rounded-lg">
+                            <h4 class="font-medium text-text-dark mb-2">Posições dos Planetas</h4>
+                            <p class="text-sm text-text-dark opacity-80" data-bind="reportData.planetPositions" data-mock="true">
+                                Sol em Peixes • Lua em Virgem • Mercúrio em Aquário<br>
+                                Vênus em Áries • Marte em Capricórnio
+                            </p>
+                        </div>
+
+                        <div class="glass-input p-4 rounded-lg">
+                            <h4 class="font-medium text-text-dark mb-2">Casas Astrológicas</h4>
+                            <p class="text-sm text-text-dark opacity-80" data-bind="reportData.houses" data-mock="true">
+                                Ascendente em Libra • MC em Câncer<br>
+                                Casa 1: Libra • Casa 2: Escorpião
+                            </p>
+                        </div>
+
+                        <div class="glass-input p-4 rounded-lg">
+                            <h4 class="font-medium text-text-dark mb-2">Aspectos Principais</h4>
+                            <p class="text-sm text-text-dark opacity-80" data-bind="reportData.aspects" data-mock="true">
+                                Sol trígono Lua • Vênus quadratura Marte<br>
+                                Mercúrio sextil Júpiter
+                            </p>
+                        </div>
+                    </div>
+
+                    <button 
+                        class="btn-primary w-full py-3 px-6 rounded-lg text-white font-medium focus-ring"
+                        data-event="click:downloadPDF"
+                        data-implementation="Should generate and download complete PDF report"
+                        data-mock="true"
+                    >
+                        <i class="fas fa-file-pdf mr-2" aria-hidden="true"></i>
+                        Baixar Relatório (PDF)
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: ResultsSection -->
+
+        <!-- @COMPONENT: ErrorSection [Error handling display] -->
+        <section id="error-section" class="hidden fade-in">
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-red-500 mb-4">
+                    <i class="fas fa-exclamation-triangle text-4xl" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-text-dark mb-2">Ops! Algo deu errado</h3>
+                <p class="text-text-dark opacity-80 mb-4" id="error-message" data-mock="true">
+                    Não foi possível gerar seu mapa astral. Tente novamente em alguns instantes.
+                </p>
+                <button 
+                    class="btn-primary py-2 px-6 rounded-lg text-white font-medium focus-ring"
+                    onclick="location.reload()"
+                    data-mock="true"
+                >
+                    <i class="fas fa-redo mr-2" aria-hidden="true"></i>
+                    Tentar Novamente
+                </button>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: ErrorSection -->
+
+    </main>
+    <!-- @END_COMPONENT: MainContainer -->
+
+    <!-- @COMPONENT: Footer [App information and credits] -->
+    <footer class="w-full py-8 px-4 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass-card rounded-2xl p-6 text-center fade-in" style="animation-delay: 0.6s">
+                <p class="text-text-dark opacity-80 mb-4">
+                    <i class="fas fa-heart text-red-400 mr-1" aria-hidden="true"></i>
+                    Desenvolvido com carinho para conectar você às estrelas
+                </p>
+                <div class="flex justify-center space-x-6 text-sm text-text-dark opacity-60">
+                    <span><i class="fas fa-shield-alt mr-1" aria-hidden="true"></i>Sem cadastro necessário</span>
+                    <span><i class="fas fa-lock mr-1" aria-hidden="true"></i>Dados privados</span>
+                    <span><i class="fas fa-download mr-1" aria-hidden="true"></i>Downloads gratuitos</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+    // TODO: Implement business logic, API calls, and state management
+    (function() {
+        'use strict';
+        
+        // Form validation and submission handling
+        const form = document.getElementById('birthChartForm');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const submitText = document.getElementById('submit-text');
+        const loadingText = document.getElementById('loading-text');
+        const resultsSection = document.getElementById('results');
+        const errorSection = document.getElementById('error-section');
+
+        // Real-time form validation
+        const inputs = form.querySelectorAll('input[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', validateField);
+            input.addEventListener('input', clearError);
+        });
+
+        function validateField(e) {
+            const field = e.target;
+            const errorDiv = document.getElementById(field.name + '-error');
+            
+            if (!field.value.trim()) {
+                showError(field, errorDiv, 'Este campo é obrigatório.');
+                return false;
+            }
+
+            if (field.name === 'nome' && field.value.trim().length < 2) {
+                showError(field, errorDiv, 'Nome deve ter pelo menos 2 caracteres.');
+                return false;
+            }
+
+            if (field.name === 'data') {
+                const birthDate = new Date(field.value);
+                const today = new Date();
+                if (birthDate > today) {
+                    showError(field, errorDiv, 'Data de nascimento não pode ser futura.');
+                    return false;
+                }
+            }
+
+            clearError(e);
+            return true;
+        }
+
+        function showError(field, errorDiv, message) {
+            field.classList.add('border-red-400');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        function clearError(e) {
+            const field = e.target;
+            const errorDiv = document.getElementById(field.name + '-error');
+            field.classList.remove('border-red-400');
+            errorDiv.classList.add('hidden');
+        }
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate all fields
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!validateField({target: input})) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) return;
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+
+            // Simulate API call (replace with actual implementation)
+            setTimeout(() => {
+                // Hide loading
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                loadingText.classList.add('hidden');
+
+                // Show results (simulate success)
+                if (Math.random() > 0.1) { // 90% success rate for demo
+                    resultsSection.classList.remove('hidden');
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Show error
+                    errorSection.classList.remove('hidden');
+                    errorSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 3000); // Simulate 3-second generation time
+        });
+
+        // Download handlers
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('[data-event*="downloadSVG"]')) {
+                // TODO: Implement SVG download
+                console.log('Download SVG triggered');
+            }
+            
+            if (e.target.closest('[data-event*="downloadPDF"]')) {
+                // TODO: Implement PDF download
+                console.log('Download PDF triggered');
+            }
+        });
+
+        // Keyboard navigation enhancement
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName === 'BUTTON') {
+                e.target.click();
+            }
+        });
+
+        // Timezone detection (placeholder)
+        function detectTimezone() {
+            // TODO: Implement automatic timezone detection
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log('Detected timezone:', timezone);
+        }
+
+        // Initialize app
+        detectTimezone();
+    })();
+    </script>
+
+    <!-- Accessibility improvements -->
+    <div class="sr-only" aria-live="polite" id="status-announcer">
+        <!-- Screen reader announcements will be added here programmatically -->
+    </div>
+
+</body>
+</html>
