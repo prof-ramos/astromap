@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertBirthDataSchema, type ChartGenerationResponse, type ParsedChartData } from "@shared/schema";
 import { z } from "zod";
 import { fromZodError } from "zod-validation-error";
+import { getSwaggerHtml, openApiSpec } from "./openapi";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Generate astral chart
@@ -66,6 +67,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: "Erro interno do servidor"
       } as ChartGenerationResponse);
     }
+  });
+
+  // OpenAPI JSON
+  app.get("/api/openapi.json", (_req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify(openApiSpec));
+  });
+
+  // Swagger UI
+  app.get("/api/docs", (_req, res) => {
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.status(200).send(getSwaggerHtml());
   });
 
   // Download SVG
